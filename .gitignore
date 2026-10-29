@@ -1,0 +1,26 @@
+# 虚拟环境：绝对不要提交，体积大且与本机路径绑定
+.venv/
+venv/
+env/
+
+# Python 运行时产生的缓存文件
+__pycache__/
+*.py[cod]
+
+# 敏感信息：API Key、密码等一律放这里，永不入库
+.env
+.env.*
+# 例外：.env.example 只是变量名模板，不含密钥，需要提交到 GitHub 供参考
+!.env.example
+
+# 编辑器/系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 本地备份文件
+*.bak*
+
+# 运行日志
+*.log

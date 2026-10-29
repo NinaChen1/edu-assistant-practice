@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小芽的科学乐园</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="app">
+    <!-- 顶部：小芽欢迎语、当前课程、今日任务、学习能量 -->
+    <header class="app-header">
+      <div class="header-main">
+        <div class="header-left">
+          <div class="app-title"><span class="app-emoji">🌱</span>小芽的科学乐园<span class="tag">Demo</span></div>
+          <p class="subtitle">你好呀！我是你的 AI 学习伙伴小芽，今天的课程是：初中生物 · 光合作用</p>
+          <p class="task-line">📌 今日任务：玩 1 局知识配对 · 做 1 次探索实验 · 完成 1 轮闪电挑战</p>
+        </div>
+        <div class="header-right">
+          <div class="energy-card">
+            <span id="plant-stage" class="plant-stage" title="植物成长阶段">🌱</span>
+            <div class="energy-info">
+              <div class="energy-top">
+                <span class="energy-label">学习能量</span>
+                <span id="energy-num" class="energy-num">40 / 100</span>
+              </div>
+              <div class="energy-bar"><div id="energy-fill" class="energy-fill"></div></div>
+              <span id="energy-stage" class="energy-stage">发芽期</span>
+            </div>
+          </div>
+          <button id="clear-btn" class="clear-btn" type="button">清空对话</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 四个彩色入口：点击平滑滚动到对应区域 -->
+    <nav class="entries">
+      <button class="entry entry-lab" data-target="lab-section" type="button">
+        <span class="entry-emoji">🔬</span>科学实验<small>拖动滑块养小芽</small>
+      </button>
+      <button class="entry entry-pair" data-target="pair-section" type="button">
+        <span class="entry-emoji">🧩</span>知识配对<small>翻开卡片找朋友</small>
+      </button>
+      <button class="entry entry-quiz" data-target="quiz-section" type="button">
+        <span class="entry-emoji">⚡</span>闪电挑战<small>5 题检验掌握度</small>
+      </button>
+      <button class="entry entry-ask" data-target="chat-section" type="button">
+        <span class="entry-emoji">💬</span>问问小芽<small>AI 为你讲解</small>
+      </button>
+    </nav>
+
+    <!-- 探索实验室：拖滑块观察光照/水分/二氧化碳对植物的影响 -->
+    <section class="lab" id="lab-section">
+      <p class="section-title">🔬 科学实验：帮小芽晒晒太阳、浇浇水</p>
+      <div class="lab-body">
+        <div class="lab-controls">
+          <label class="lab-row">☀️ 光照
+            <input type="range" id="lab-light" min="0" max="100" value="60" />
+            <span class="lab-val" id="lab-light-val">60%</span>
+          </label>
+          <label class="lab-row">💧 水分
+            <input type="range" id="lab-water" min="0" max="100" value="60" />
+            <span class="lab-val" id="lab-water-val">60%</span>
+          </label>
+          <label class="lab-row">💨 二氧化碳
+            <input type="range" id="lab-co2" min="0" max="100" value="60" />
+            <span class="lab-val" id="lab-co2-val">60%</span>
+          </label>
+        </div>
+        <div class="lab-stage">
+          <div id="lab-plant" class="lab-plant">🌱</div>
+          <p id="lab-status" class="lab-status">小芽长得不错！</p>
+        </div>
+      </div>
+      <button id="lab-ask" class="chip lab-ask-btn" type="button">🤔 为什么会这样？问问小芽</button>
+      <p class="lab-hint">小提示：拖动滑块观察植物的变化，把你的发现告诉小芽！</p>
+    </section>
+
+    <!-- 知识配对：翻开两张卡片，把概念和答案配成一对 -->
+    <section class="pair" id="pair-section">
+      <p class="section-title">🧩 知识配对：把概念和它的答案连起来 <span id="pair-progress" class="pair-progress">已配对 0 / 5</span></p>
+      <div id="pair-board" class="pair-board"></div>
+      <p id="pair-feedback" class="pair-feedback"></p>
+      <div id="pair-summary" class="pair-summary" hidden>
+        <p id="pair-summary-text"></p>
+        <div class="pair-summary-actions">
+          <button id="pair-ask" class="chip" type="button">💬 就这些知识，问问小芽</button>
+          <button id="pair-restart" class="chip" type="button">🔄 再玩一次</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 闪电挑战：5 道单选题，答错可看提示重新思考 -->
+    <section class="quiz" id="quiz-section">
+      <p class="section-title">⚡ 闪电挑战：5 道题检验你的掌握度</p>
+      <div id="quiz-list"></div>
+      <div id="quiz-result" class="quiz-result" hidden>
+        <p id="quiz-result-text"></p>
+        <button id="quiz-restart" class="chip" type="button">🔄 重新挑战</button>
+      </div>
+    </section>
+
+    <!-- 问答区：小芽为你讲解 -->
+    <div id="chat-section">
+      <div id="suggestions" class="suggestions">
+        <button class="chip" type="button" data-question="光合作用需要哪些原料？">光合作用需要哪些原料？</button>
+        <button class="chip" type="button" data-question="光合作用需要什么条件？">光合作用需要什么条件？</button>
+        <button class="chip" type="button" data-question="光合作用主要产生什么？">光合作用主要产生什么？</button>
+      </div>
+
+      <section id="chat" class="chat" aria-live="polite">
+        <div class="msg msg-bot">
+          <div class="bubble">
+            你好呀！我是小芽 🌱 你可以问我光合作用的问题，或者先去上面的探索实验室玩一玩，再把发现告诉我！
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p id="hint" class="hint" hidden></p>
+
+    <form id="ask-form" class="composer">
+      <input
+        id="question"
+        class="input"
+        type="text"
+        placeholder="例如：什么是光合作用？"
+        autocomplete="off"
+        maxlength="500"
+      />
+      <button id="send-btn" class="btn" type="submit">发送</button>
+    </form>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
