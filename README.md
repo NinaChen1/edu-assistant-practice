@@ -21,7 +21,7 @@
 | 层 | 技术 |
 |---|---|
 | 后端 | Python + Flask |
-| 大模型 | DeepSeek API（Key 仅存于本机 `.env`，经环境变量读取） |
+| 大模型 | DeepSeek API |
 | RAG | 纯标准库实现：Markdown 按 `##` 切块 + 标题加权的关键词匹配检索（零额外依赖） |
 | 前端 | 原生 HTML / CSS / JavaScript，无框架、无构建工具 |
 
