@@ -312,6 +312,13 @@ body {
   font-size: 11px;
 }
 
+/* 课程资料回答：黄色标签（摘自资料库，未调用大模型） */
+.source-material {
+  background: #fff6d9;
+  color: #9a7b1c;
+  border: 1px solid #f0dfa1;
+}
+
 /* AI 生成：绿色标签 */
 .source-ai {
   background: #e1f5ee;

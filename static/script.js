@@ -192,6 +192,9 @@ async function askQuestion(question) {
     if (data.source === "ai") {
       tag.className = "source-tag source-ai";
       tag.textContent = "DeepSeek AI 生成";
+    } else if (data.source === "material") {
+      tag.className = "source-tag source-material";
+      tag.textContent = "📖 课程资料回答";
     } else {
       tag.className = "source-tag source-mock";
       tag.textContent = data.fallback_reason
